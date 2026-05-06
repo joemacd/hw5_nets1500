@@ -16,14 +16,12 @@ import java.util.Set;
  */
 public class DNSFailureAnalyzer {
     private Map<String, List<String>> siteToNameServers;
-    private Map<String, List<String>> nameServerToSites;
 
     /*
      * Constructor takes in a finished DNSDependencyGraph.
      */
     public DNSFailureAnalyzer(DNSDependencyGraph graph) {
         this.siteToNameServers = graph.getSiteToNameServers();
-        this.nameServerToSites = graph.getNameServerToSites();
     }
 
     /*
@@ -162,7 +160,9 @@ public class DNSFailureAnalyzer {
             System.out.println("Provider count: " + providers.size());
             System.out.println("Providers: " + providers);
 
-            if (providers.size() == 1 && nameServers.size() > 1) {
+            if (nameServers.size() == 1) {
+                System.out.println("Result: single nameserver");
+            } else if (providers.size() == 1) {
                 System.out.println("Result: multiple nameservers, but only one provider");
             } else {
                 System.out.println("Result: provider-diverse DNS setup");

@@ -11,3 +11,5 @@ xyz
 ### DNSResolver:
 
 xyz
+
+"dot -Tpng dns_graph.dot -o dns_graph.png"

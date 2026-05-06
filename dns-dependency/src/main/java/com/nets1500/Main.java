@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Starting DNS dependency graph...");
 
-        DNSDependencyGraph graph = new DNSDependencyGraph(20);
+        DNSDependencyGraph graph = new DNSDependencyGraph(100);
         graph.printGraph();
         graph.exportGraph("dns_graph.dot");
 

@@ -1,0 +1,6 @@
+target/
+out/
+*.class
+*.jar
+*.dot
+*.png

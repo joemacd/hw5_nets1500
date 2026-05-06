@@ -59,7 +59,7 @@ public class DNSResolver {
     /*
     * Get the list of name servers for a given domain name by querying with DirContext
     */
-    private List<String> queryNameServer(DirContext ctx, String name) {
+    List<String> queryNameServer(DirContext ctx, String name) {
         List<String> results = new ArrayList<>();
         try {
             Attributes attrs = ctx.getAttributes("dns:/" + name, new String[]{"NS"});
