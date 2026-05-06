@@ -14,6 +14,7 @@ public class Main {
         analyzer.simulateProviderFailure("AWS Route 53");
         analyzer.simulateLargestProviderFailure();
         analyzer.testProviderRedundancy();
+        analyzer.testSelfHosting();
 
         System.out.println("Done.");
     }

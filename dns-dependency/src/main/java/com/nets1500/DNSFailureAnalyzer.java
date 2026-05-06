@@ -173,6 +173,50 @@ public class DNSFailureAnalyzer {
     }
 
     /*
+     * Test whether top websites self-host their DNS or outsource to third-party providers.
+     *
+     * Sites can also be hybrid (some nameservers self-hosted, some outsourced).
+     */
+    public void testSelfHosting() {
+        System.out.println("\n========== SELF-HOSTING VS OUTSOURCING ==========");
+
+        int selfHosted = 0;
+        int outsourced = 0;
+        int hybrid = 0;
+
+        for (String site : siteToNameServers.keySet()) {
+            List<String> nameServers = siteToNameServers.get(site);
+
+            long ownCount = nameServers.stream()
+                .map(ns -> ns.endsWith(".") ? ns.substring(0, ns.length() - 1) : ns)
+                .filter(ns -> ns.endsWith("." + site) || ns.equals(site))
+                .count();
+
+            String result;
+            if (ownCount == nameServers.size()) {
+                result = "self-hosted";
+                selfHosted++;
+            } else if (ownCount > 0) {
+                result = "hybrid";
+                hybrid++;
+            } else {
+                result = "outsourced";
+                outsourced++;
+            }
+
+            System.out.println(site + " [" + result + "]");
+            for (String ns : nameServers) {
+                System.out.println("  " + ns);
+            }
+        }
+
+        System.out.println("\nSummary:");
+        System.out.println("Self-hosted: " + selfHosted);
+        System.out.println("Hybrid:      " + hybrid);
+        System.out.println("Outsourced:  " + outsourced);
+    }
+
+    /*
      * Build a provider-to-sites map from the graph.
      *
      * Original graph:
