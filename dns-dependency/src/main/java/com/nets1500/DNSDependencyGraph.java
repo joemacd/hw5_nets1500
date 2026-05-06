@@ -45,13 +45,19 @@ public class DNSDependencyGraph {
     private List<String> scanTopX(int x) throws IOException {
         List<String> sites = new ArrayList<>();
         Document doc = Jsoup.connect(top100Link).get();
-        Elements cells = doc.select(".best-companies__table-cell-domain");
+        // Elements cells = doc.select(".best-companies__table-cell-domain");
+        Elements cells = doc.select(".best-companies__table-row-body .best-companies__table-cell-domain");
         for (int i = 0; i < Math.min(x, cells.size()); i++) {
             Element link = cells.get(i).selectFirst("a");
             if (link != null) {
                 sites.add(link.text().trim());
             }
         }
+        System.out.println(sites);
         return sites;
+    }
+
+    public static void main(String[] args) {
+        DNSDependencyGraph graph = new DNSDependencyGraph(100);
     }
 } 
