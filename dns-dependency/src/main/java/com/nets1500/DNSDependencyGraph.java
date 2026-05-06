@@ -53,11 +53,6 @@ public class DNSDependencyGraph {
                 sites.add(link.text().trim());
             }
         }
-        System.out.println(sites);
         return sites;
     }
-
-    public static void main(String[] args) {
-        DNSDependencyGraph graph = new DNSDependencyGraph(100);
-    }
-} 
+}
