@@ -3,12 +3,13 @@ NETS 1500 — Markets and Social Systems on the Internet
 
 ## Project Description:
 
-This project analyzes the DNS infrastructure across the 100 most visited websites. Each time a user visits one of these websites, a DNS lookup is performed. While this process is largely invisible to end-users, it is a critical component of the internet's infrastructure. The goal of our project was to map the DNS dependency graph of the top 100 U.S. websites, identify which DNS providers dominate the market, and analyze what their expansiveness means for the resilience and structure of the web.
+This project analyzes the DNS infrastructure across the 100 most visited websites. Each time a user visits one of these websites, a DNS lookup is performed. While this process is largely invisible to end-users, it is a critical component of the internet's infrastructure. The goal of our project was to map the DNS dependency graph of the top 100 U.S. websites, identify which DNS providers dominate the market, and analyze what their expansiveness means for the resilience and structure of the web. Through this empirical analysis, we were also able to test our core hypotheses. 
 
 ## Categories Used:
 
-- Empirical Analysis (DNS dependency graph, hypothesis testing)
-- Data collection via web scraping with JSoup (seranking.com) and DNS queries
+- Graph and Grpah Algorithms (DNS dependency graph)
+- Physical Networks - Internet (Finding DNS providers)
+- Other: Data collection via web scraping with JSoup (seranking.com)
 
 ## Code:
 
