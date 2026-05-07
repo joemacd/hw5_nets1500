@@ -1,21 +1,24 @@
 package com.nets1500;
-import java.util.ArrayList;
-import java.util.List;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 
 public class DNSDependencyGraph {
@@ -109,21 +112,21 @@ public class DNSDependencyGraph {
     * Print the DNS dependency graph in both directions.
     */
     public void printGraph() {
-        System.out.println("\n========== SITE TO NAMESERVERS ==========");
+        System.out.println("\nSite to Nameservers:");
         for (String site : siteToNameServers.keySet()) {
             System.out.println(site + " -> " + siteToNameServers.get(site));
         }
 
-        System.out.println("\n========== NAMESERVER TO SITES ==========");
+        System.out.println("\nNameserver to Sites:");
         for (String nameServer : nameServerToSites.keySet()) {
             System.out.println(nameServer + " -> " + nameServerToSites.get(nameServer));
         }
     }
 
     /*
-    * Export graph to a GraphViz DOT file.
+    * Export site -> nameserver graph to a GraphViz DOT file.
     */
-    public void exportGraph(String filename) {
+    public void exportNameServerGraph(String filename) {
         try (FileWriter writer = new FileWriter(filename)) {
             writer.write("digraph DNSDependencyGraph {\n");
             writer.write("    rankdir=LR;\n");
@@ -138,11 +141,44 @@ public class DNSDependencyGraph {
             }
 
             writer.write("}\n");
-            System.out.println("Graph exported to " + filename);
+            System.out.println("Nameserver graph exported to " + filename);
 
         } catch (IOException e) {
-            System.out.println("Could not export graph.");
-            System.out.println("Reason: " + e.getMessage());
+            System.out.println("Could not export graph: " + e.getMessage());
+        }
+    }
+
+    /*
+    * Export site -> provider graph to a GraphViz DOT file.
+    */
+    public void exportProviderGraph(String filename, DNSFailureAnalyzer analyzer) {
+        Map<String, Set<String>> providerToSites = new HashMap<>();
+
+        for (String site : siteToNameServers.keySet()) {
+            for (String ns : siteToNameServers.get(site)) {
+                String provider = analyzer.getProvider(ns);
+                providerToSites.putIfAbsent(provider, new HashSet<>());
+                providerToSites.get(provider).add(site);
+            }
+        }
+
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write("digraph DNSProviderGraph {\n");
+            writer.write("    rankdir=LR;\n");
+            writer.write("    node [shape=box];\n");
+
+            for (String provider : providerToSites.keySet()) {
+                writer.write("    \"" + provider + "\" [shape=ellipse];\n");
+                for (String site : providerToSites.get(provider)) {
+                    writer.write("    \"" + site + "\" -> \"" + provider + "\";\n");
+                }
+            }
+
+            writer.write("}\n");
+            System.out.println("Provider graph exported to " + filename);
+
+        } catch (IOException e) {
+            System.out.println("Could not export provider graph: " + e.getMessage());
         }
     }
 
