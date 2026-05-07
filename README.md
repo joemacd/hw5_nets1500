@@ -3,7 +3,7 @@ NETS 1500 — Markets and Social Systems on the Internet
 
 ## Project Description:
 
-This project analyzes the DNS infrastructure across the 100 most visited websites. Each time a user visits one of these websites, a DNS lookup is performed. Despite the critical role of this infrastructure, it is largely invisible to end-users. The goal of our project was to map the DNS dependency graph of the top 100 U.S. websites, identify which DNS providers dominate the market, and analyze what that concentration means for the resilience and structure of the web.
+This project analyzes the DNS infrastructure across the 100 most visited websites. Each time a user visits one of these websites, a DNS lookup is performed. While this process is largely invisible to end-users, it is a critical component of the internet's infrastructure. The goal of our project was to map the DNS dependency graph of the top 100 U.S. websites, identify which DNS providers dominate the market, and analyze what their expansiveness means for the resilience and structure of the web.
 
 ## Categories Used:
 
@@ -24,7 +24,7 @@ sfdp -Tpng -Goverlap=prism dns_provider_graph.dot -o dns_provider_graph.png
 
 ## Work Breakdown
 
-Joe MacDougall: DNSResolver logic, self-hosting vs outsourcing hypothesis testing, hypothesis ideation, provider visualization,
+Joe MacDougall: DNSResolver logic, self-hosting vs outsourcing hypothesis testing, hypothesis ideation, provider visualization.
 
 Liana Veerasamy: DNSDependencyGraph, initial hypothesis ideation, NS->site dependence hypothesis tests, nameserver visualization.
 
@@ -32,4 +32,4 @@ Arushi Agarwal: DNSDependencyGraph, JSoup scraping, hypothesis ideation, DNSFail
 
 ## AI Usage:
 
-Our group used AI to assist with pieces of coding. Specifically, we used AI for vizualization library logic, debugging a deprecated DNS-related library, and for initial learning (non-code) about nameserver queries in Java.
+Our group used AI to assist with specific components of our code. Specifically, we used AI for vizualization library logic, debugging a deprecated DNS-related library, and for initial learning (non-code) about nameserver queries in Java.
