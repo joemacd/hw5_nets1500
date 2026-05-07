@@ -7,7 +7,7 @@ This project analyzes the DNS infrastructure across the 100 most visited website
 
 ## Categories Used:
 
-- Graph and Grpah Algorithms (DNS dependency graph)
+- Graph and Graph Algorithms (DNS dependency graph)
 - Physical Networks - Internet (Finding DNS providers)
 - Other: Data collection via web scraping with JSoup (seranking.com)
 
